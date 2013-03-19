@@ -47,20 +47,11 @@ class QuestionFormManager
      * @access public
      * @return QuestionFormType
      */
-    public function saveQuestion()
+    public function saveQuestion($data)
     {
         $form = $this->getQuestionForm();
-        $data = $this->request->get('question');
-
-        $temp = array();
-        foreach ($data['choices'] as $k => $choice) {
-            if (!is_int($k))continue;
-            $temp[$choice['label']] = $choice;
-            unset($data['choices'][$k]);
-        }
-        $data['choices']['choices'] = $temp;
-
         $form->bind($data);
+
         $this->em->persist($form->getData());
         $this->em->flush();
 

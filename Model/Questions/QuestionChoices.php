@@ -63,7 +63,9 @@ abstract class QuestionChoices implements ChoiceListInterface
 
     public function setConfig($config)
     {
-        $this->config = array('type' => $config);
+        if($config){
+            $this->config = array('type' => $config);
+        }
         return $this;
     }
 

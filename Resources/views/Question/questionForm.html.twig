@@ -9,59 +9,35 @@
 {% endblock %}
 
 {% block content %}
-<h1>{% trans %} New Question {% endtrans  %}
-<form action="{{ path('egulias_question_save')}}" method="POST" {{ form_enctype(form)}} class="form-stacked">
-<div class="clearfix">
-  {{ form_label(form.name) }}
-  {{ form_errors(form.name) }}
-  {{ form_widget(form.name) }}
-  <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The name of the Question that will be shown
-when creating a new Quiz{% endtrans %}</span>
-</div>
-<div class="clearfix">
-  {{ form_label(form.text) }}
-  {{ form_errors(form.text) }}
-  {{ form_widget(form.text) }}
-  <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The question itself. This is what
-  will be shown when taking a quiz.{% endtrans %}</span>
-</div>
-<div class="clearfix">
-  {{ form_label(form.type) }}
-  {{ form_errors(form.type) }}
-  {{ form_widget(form.type, {'attr' : { 'class':'question_type' } }) }}
-  <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The type of answer this question
-  will spect.{% endtrans %}</span>
-</div>
-<div class="add_options hidden" >
-<div class="clearfix">
-  {{ form_label(form.choices) }}
-  {{ form_errors(form.choices) }}
-  {{ form_widget(form.choices) }}
-</div>
-{#  <div class="clearfix">
-    <input type="radio" name="question[choices][config][]" value="radio" checked="checked" />
-    <label for="choice[radio]">{% trans %} Use radio buttons - single choice selection {% endtrans %}</label>
-  </div>
-  <div class="clearfix">
-    <input type="radio" name="question[choices][config][]" value="checkbox"/>
-    <label for="choice[checkbox]">{% trans %} Use checkboxes - multiple choice selection {% endtrans %}</label>
-  </div>
-  <div class="clearfix">
-    <input type="radio" name="question[choices][config][]" value="select"/>
-    <label for="choice[radio]">{% trans %} Use a list - single choice selection {% endtrans %}</label>
-  </div>
-#}
-  <div class="clearfix">
-    <a href="#">Add choice</a>
-    <div class="question_options hidden">
-      <input type="text" name="options[label]" class="choice_label"/>
-      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}This will be the label displayed for the option {% endtrans %}</span>
-      <input type="text" name="options[value]" class="choice_value"/>
-      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}This will be the value for the option {% endtrans %}</span>
+<h1>{% trans %} New Question {% endtrans  %}</h1>
+
+<form action="{{  path('egulias_question_save') }}" method="POST" {{ form_enctype(form)}} class="form-stacked">
+    <div class="clearfix">
+      {{ form_label(form.name) }}
+      {{ form_errors(form.name) }}
+      {{ form_widget(form.name) }}
+      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The name of the Question that will be shown
+    when creating a new Quiz{% endtrans %}</span>
     </div>
-  </div>
-</div>
-{{ form_widget(form) }}
+    <div class="clearfix">
+      {{ form_label(form.text) }}
+      {{ form_errors(form.text) }}
+      {{ form_widget(form.text) }}
+      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The question itself. This is what
+      will be shown when taking a quiz.{% endtrans %}</span>
+    </div>
+
+
+    <div class="clearfix">
+      {% for i,letter in ['a)','b)','c)','d)'] %}
+      <label>Answer {{ letter }}</label>
+        <input type="text"  name="question[choices][choices][{{ i }}][label]" class="choice_label mini" value="{{ letter }}" />
+        <input type="text"  name="question[choices][choices][{{ i }}][value]" class="choice_value"/>
+      {% endfor %}
+    </div>
+
+    <input type="hidden" name="question[type]" value="choice" />
+{{ form_widget(form._token) }}
 <button type='submit' class="btn primary">{% trans %}Save Question{% endtrans %}</button>
 </form>
 {% endblock %}

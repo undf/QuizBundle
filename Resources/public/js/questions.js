@@ -1,6 +1,7 @@
 $(function () {
+/*
     // When changing the  question type
-    $('.question_type').live('change', function (e) {
+    $('.question_type').on('change', function (e) {
         e.stopPropagation();
         element = $('.add_options:not(:visible)');
         option = $(this).val();
@@ -11,7 +12,9 @@ $(function () {
             element.hide();
         }
     });
-    $('a', '.add_options').live('click', function (e) {
+
+
+    $('a', '.add_options').on('click', function (e) {
         e.stopPropagation();
         option = $('.question_options:not(:visible)');
         cloned = option.clone();
@@ -21,4 +24,5 @@ $(function () {
         cloned.removeClass('hidden')
         $(this).parent('div').append(cloned);
     });
+*/
 });

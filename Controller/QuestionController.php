@@ -1,4 +1,5 @@
 <?php
+
 namespace Egulias\QuizBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -7,12 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Doctrine\Common\Util\Debug;
-
-
 use Egulias\QuizBundle\Form\Type\QuestionFormType;
 use Egulias\QuizBundle\Entity\QuizQuestion;
 use Egulias\QuizBundle\Form\Type\QuestionOptionsFormType;
 use Egulias\QuizBundle\Form\Type\QuestionsListFormType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * QuestionController
@@ -25,6 +25,7 @@ use Egulias\QuizBundle\Form\Type\QuestionsListFormType;
  */
 class QuestionController extends Controller
 {
+
     /**
      * questionsPanelAction
      * Main question panel
@@ -35,10 +36,8 @@ class QuestionController extends Controller
     public function questionsPanelAction()
     {
         $questions = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('EguliasQuizBundle:Question')->findAll();
-        return $this->render(
-            'EguliasQuizBundle:Question:list.html.twig',
-            array('questions' => $questions)
+                        ->getRepository('EguliasQuizBundle:Question')->findAll();
+        return $this->render('EguliasQuizBundle:Question:list.html.twig', array('questions' => $questions)
         );
     }
 
@@ -53,8 +52,7 @@ class QuestionController extends Controller
     {
         $q = $this->get('egulias.question.manager')->getQuestionForm();
         return $this->render(
-            'EguliasQuizBundle:Question:questionForm.html.twig',
-            array('form' => $q->createView())
+                        'EguliasQuizBundle:Question:questionForm.html.twig', array('form' => $q->createView())
         );
     }
 
@@ -66,7 +64,10 @@ class QuestionController extends Controller
      */
     public function saveQuestionAction()
     {
-        $this->get('egulias.question.manager')->saveQuestion();
+        $data = $this->getRequest()->get('question');
+
+        $this->get('egulias.question.manager')->saveQuestion($data);
+
         return $this->redirect($this->generateUrl('egulias_quiz_question'));
     }
 
@@ -75,19 +76,33 @@ class QuestionController extends Controller
      *
      * @return  Response
      *
-     * @Route ("/quiz/question/{id}/edit", requirements={"id" = "\d+"} ,name="egulias_quiz_question_edit")
+     * @Route ("/quiz/questions/{id}/edit", requirements={"id" = "\d+"} ,name="egulias_quiz_question_edit")
      */
     public function editQuestionAction($id)
     {
-        $question
-            = $this->get('doctrine.orm.entity_manager')
+        $question = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('EguliasQuizBundle:Question')
                 ->findOneBy(array('id' => $id));
+
         $form = $this->get('form.factory')->create(new QuestionFormType(), $question);
-        return $this->render(
-            'EguliasQuizBundle:Question:questionForm.html.twig',
-            array('form' => $form->createView(), 'id' =>$id)
+
+        return $this->render('EguliasQuizBundle:Question:questionForm.html.twig', array('form' => $form->createView(), 'id' => $id)
         );
+    }
+
+    /**
+     * Update a Question
+     *
+     * @return  Response
+     *
+     * @Route ("/quiz/question/{id}/update", requirements={"id" = "\d+"} ,name="egulias_quiz_question_update")
+     * @Method("POST")
+     */
+    public function updateQuestionAction($id)
+    {
+        $this->get('egulias.question.manager')->editQuestion($id);
+
+        return $this->redirect($this->generateUrl('egulias_quiz_question'));
     }
 
     /**
@@ -103,17 +118,14 @@ class QuestionController extends Controller
         $quizId = intval($this->get('request')->get('quiz'));
         $q = $this->get('form.factory')->create(new QuestionsListFormType());
         if ($quiz = $this->get('doctrine.orm.entity_manager')
-            ->getRepository('EguliasQuizBundle:Quiz')
-            ->findOneBy(array('id' => $quizId))
+                ->getRepository('EguliasQuizBundle:Quiz')
+                ->findOneBy(array('id' => $quizId))
         ) {
             $qq = new QuizQuestion();
             $qq->setQuiz($quiz);
             $q->setData($qq);
         }
-        return $this->render(
-            'EguliasQuizBundle:Question:quizQuestionForm.html.twig',
-            array('questionForm' => $q->createView(),
-            )
+        return $this->render('EguliasQuizBundle:Question:quizQuestionForm.html.twig', array('questionForm' => $q->createView())
         );
     }
 

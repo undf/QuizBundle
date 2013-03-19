@@ -43,7 +43,7 @@ class QuizManagerController extends Controller
      */
     public function saveQuizAction()
     {
-        $quizForm = $this->get('egulias.quiz.manager')->saveQuizForm();
+        $this->get('egulias.quiz.manager')->saveQuizForm();
         return $this->redirect($this->generateUrl('egulias_quiz_panel'));
     }
 
@@ -54,8 +54,9 @@ class QuizManagerController extends Controller
     public function editQuizAction($id)
     {
         $form = $this->get('egulias.quiz.manager')->editQuizForm($id);
-        return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array('form' => $form->createView(), 'id' =>
-                    $id));
+        return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $id));
     }
 
     /**
@@ -65,8 +66,9 @@ class QuizManagerController extends Controller
     public function updateQuizAction($id)
     {
         $form = $this->get('egulias.quiz.manager')->updateQuizForm($id);
-        return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array('form' => $form->createView(), 'id'
-                    => $id));
+        return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array(
+                    'form' => $form->createView(),
+                    'id' => $id));
     }
 
 }

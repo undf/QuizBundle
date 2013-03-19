@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<h1>{% trans %} New Quiz {% endtrans  %}
+        <h1>{% block quiz_form_header %} {{ 'New Quiz' | trans }}{% endblock %}</h1>
 <form action="{% block form_action %} {{ path('egulias_quiz_save')}} {% endblock %}" method="POST" {{
   form_enctype(form)}} class = "form-stacked" >
 <div class="clearfix">
