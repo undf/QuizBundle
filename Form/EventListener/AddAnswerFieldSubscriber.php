@@ -1,5 +1,7 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Form\EventListener;
 
 use Symfony\Component\Form\Event\DataEvent;
@@ -8,9 +10,9 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Form\FormEvents;
 use Egulias\QuizBundle\Form\Type\AnswerFormType;
 
-
 class AddAnswerFieldSubscriber implements EventSubscriberInterface
 {
+
     private $factory;
 
     public function __construct(FormFactoryInterface $factory)
@@ -31,6 +33,8 @@ class AddAnswerFieldSubscriber implements EventSubscriberInterface
         if (null === $data) {
             return;
         }
-        $form->add($this->factory->createNamed(new AnswerFormType($data->getQuestion()),'answer'));
+
+        $form->add($this->factory->createNamed('answer', new AnswerFormType($data->getQuestion())));
     }
+
 }
