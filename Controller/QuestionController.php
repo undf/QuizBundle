@@ -85,7 +85,7 @@ class QuestionController extends Controller
                 ->findOneBy(array('id' => $id));
         $form = $this->get('form.factory')->create(new QuestionFormType(), $question);
         return $this->render(
-            'EguliasQuizBundle:Quiz:questionForm.html.twig',
+            'EguliasQuizBundle:Question:questionForm.html.twig',
             array('form' => $form->createView(), 'id' =>$id)
         );
     }

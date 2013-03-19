@@ -3,13 +3,13 @@
 namespace Egulias\QuizBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilder
+    Symfony\Component\Form\FormBuilderInterface
 ;
 use Doctrine\Common\Util\Debug;
 
 class ChoicesFormType extends AbstractType
 {
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('config', 'choice', array(
             'expanded' => TRUE,

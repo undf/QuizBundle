@@ -45,12 +45,12 @@ abstract class QuestionChoices implements ChoiceListInterface
             $ch[$choice['value']] = $choice['label'];
         }
         return $ch;
-
     }
 
     public function setChoices(array $choices)
     {
-        if (!is_array($choices))throw new \InvalidArgumentException;
+        if (!is_array($choices))
+            throw new \InvalidArgumentException;
 
         $this->choices = $choices;
         return $this;
@@ -72,4 +72,5 @@ abstract class QuestionChoices implements ChoiceListInterface
         $config = $this->getConfig();
         return $config['type'];
     }
+
 }

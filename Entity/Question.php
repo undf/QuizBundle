@@ -9,7 +9,7 @@ use
 /**
  *
  * @ORM\Entity
- * @ORM\Table (name="question")
+ * @ORM\Table (name="qz_question")
  */
 class Question extends BaseQuestion
 {

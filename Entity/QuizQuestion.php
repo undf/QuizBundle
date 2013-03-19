@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  *
  * @ORM\Entity
- * @ORM\Table (name="quiz_question")
+ * @ORM\Table (name="qz_quiz_question")
  */
 class QuizQuestion extends QuizQuestionBase
 {

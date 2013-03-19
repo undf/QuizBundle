@@ -9,13 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     JMS\SecurityExtraBundle\Annotation\Secure,
     Doctrine\Common\Util\Debug
 ;
-
 use Egulias\QuizBundle\Form\Type\QuizFormType;
 use Egulias\QuizBundle\Entity\Quiz;
 use Egulias\QuizBundle\Entity\QuizQuestion;
 
 class QuizManagerController extends Controller
 {
+
     /**
      * Quizes control panel
      * @Route("/quiz", name="egulias_quiz_panel")
@@ -36,6 +36,7 @@ class QuizManagerController extends Controller
         $quizForm = $this->get('egulias.quiz.manager')->getQuizForm();
         return $this->render('EguliasQuizBundle:Quiz:add_quiz.html.twig', array('form' => $quizForm->createView()));
     }
+
     /**
      * Save a Quiz
      * @Route ("/quiz/save", name="egulias_quiz_save")
@@ -44,9 +45,7 @@ class QuizManagerController extends Controller
     {
         $quizForm = $this->get('egulias.quiz.manager')->saveQuizForm();
         return $this->redirect($this->generateUrl('egulias_quiz_panel'));
-
     }
-
 
     /**
      * Edit a Quiz
@@ -56,7 +55,7 @@ class QuizManagerController extends Controller
     {
         $form = $this->get('egulias.quiz.manager')->editQuizForm($id);
         return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array('form' => $form->createView(), 'id' =>
-        $id));
+                    $id));
     }
 
     /**
@@ -67,8 +66,8 @@ class QuizManagerController extends Controller
     {
         $form = $this->get('egulias.quiz.manager')->updateQuizForm($id);
         return $this->render('EguliasQuizBundle:Quiz:update_quiz.html.twig', array('form' => $form->createView(), 'id'
-            => $id));
+                    => $id));
     }
-}
 
+}
 

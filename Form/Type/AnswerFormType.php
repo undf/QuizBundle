@@ -3,7 +3,7 @@
 namespace Egulias\QuizBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilder,
+    Symfony\Component\Form\FormBuilderInterface,
     Egulias\QuizBundle\Entity\Question
 ;
 use Doctrine\Common\Util\Debug;
@@ -17,7 +17,7 @@ class AnswerFormType extends AbstractType
         $this->question = $question;
     }
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->builder = $builder;
         $config =

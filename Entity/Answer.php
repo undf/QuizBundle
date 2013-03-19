@@ -10,7 +10,7 @@ use
 /**
  *
  * @ORM\Entity(repositoryClass="Egulias\QuizBundle\Repository\AnswerRepository")
- * @ORM\Table (name="answer")
+ * @ORM\Table (name="qz_answer")
  */
 class Answer extends BaseAnswer
 {

@@ -1,5 +1,7 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller,
@@ -9,7 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller,
     JMS\SecurityExtraBundle\Annotation\Secure,
     Doctrine\Common\Util\Debug
 ;
-
 use Egulias\QuizBundle\Entity\Quiz;
 use Egulias\QuizBundle\Entity\Answer;
 use Egulias\QuizBundle\Entity\QuizQuestion;
@@ -19,6 +20,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 class QuizController extends Controller
 {
+
     /**
      * Quizes to be done!
      * @Route("/take/quiz/{id}",requirements={"id" = "\d+"} ,name="egulias_quiz_take")
@@ -27,7 +29,7 @@ class QuizController extends Controller
     {
         $form = $this->get('egulias.take.quiz')->takeQuiz($id);
         return $this->render('EguliasQuizBundle:Quiz:take_quiz.html.twig', array('quizForm' => $form->createView(),
-            'quiz' => $form->getData()));
+                    'quiz' => $form->getData()));
     }
 
     /**
@@ -37,11 +39,12 @@ class QuizController extends Controller
     public function saveResponseAction($id)
     {
 
-        if(!$form = $this->get('egulias.take.quiz')->responseQuiz($id)) {
+        if (!$form = $this->get('egulias.take.quiz')->responseQuiz($id)) {
             return $this->render('EguliasQuizBundle:Quiz:take_quiz.html.twig', array('quizForm' => $form->createView(),
-                'quiz' => $form->getData()));
+                        'quiz' => $form->getData()));
         }
         return $this->redirect($this->generateUrl('egulias_quiz_panel'));
     }
+
 }
 

@@ -3,7 +3,7 @@
 namespace Egulias\QuizBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType,
-    Symfony\Component\Form\FormBuilder,
+    Symfony\Component\Form\FormBuilderInterface,
     Egulias\QuizBundle\Form\EventListener\AddQuizFieldSubscriber,
     Doctrine\ORM\EntityRepository
 ;
@@ -12,7 +12,7 @@ class QuestionsListFormType extends AbstractType
 {
     protected $builder = null;
 
-    public function buildForm(FormBuilder $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->builder = $builder;
 

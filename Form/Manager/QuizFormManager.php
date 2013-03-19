@@ -1,22 +1,23 @@
 <?php
+
 namespace Egulias\QuizBundle\Form\Manager;
 
 use Symfony\Component\HttpFoundation\Request;
-
 use Egulias\QuizBundle\Form\Type\QuizFormType;
 use Egulias\QuizBundle\Entity\Quiz;
 use Egulias\QuizBundle\Entity\QuizQuestion;
 use Doctrine\Common\Util\Debug;
+
 /**
  *
  * @author Eduardo Gulias Davis <me@egulias.com>
  */
 class QuizFormManager
 {
+
     protected $em = NULL;
     protected $request = NULL;
     protected $formFactory = NULL;
-
 
     public function __construct(Request $request, $em, $formFactory)
     {
@@ -52,15 +53,15 @@ class QuizFormManager
         }
 
         $form->bind($params);
-        if (!$form->isValid())return $form;
+        if (!$form->isValid())
+            return $form;
 
         $quiz = $form->getData();
         $this->em->persist($quiz);
 
-        foreach ($questions as $question)
-        {
+        foreach ($questions as $question) {
             $question = $this->em->getRepository('EguliasQuizBundle:Question')
-                ->findOneBy(array('id' => $question['question']));
+                    ->findOneBy(array('id' => $question['question']));
             $qq = new QuizQuestion;
             $qq->setQuiz($quiz);
             $qq->setQuestion($question);
@@ -115,7 +116,8 @@ class QuizFormManager
             $form->setData($quiz);
             $form->bind($rawData);
 
-            if (!$form->isValid())return $form;
+            if (!$form->isValid())
+                return $form;
 
             $quizForm = $form->getData();
             //Question submited in the form
@@ -129,8 +131,7 @@ class QuizFormManager
             }
             $this->em->persist($quizForm);
             //Delete Questions
-            foreach ($formQuestions as $key => &$question)
-            {
+            foreach ($formQuestions as $key => &$question) {
                 if (isset($rawData['questions'][$key]['delete'])) {
                     $this->em->remove($quizQuestions[$key]);
                 }
@@ -138,9 +139,9 @@ class QuizFormManager
 
             $this->em->flush();
             return $form;
-        }
-        catch (\Exception $e) {
-            throw new \Exception($e->getMessage(),0,$e);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 0, $e);
         }
     }
+
 }

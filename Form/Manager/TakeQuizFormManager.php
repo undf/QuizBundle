@@ -1,12 +1,10 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
 namespace Egulias\QuizBundle\Form\Manager;
 
 use Symfony\Component\HttpFoundation\Request;
 
 use Egulias\QuizBundle\Form\Type\GenericQuizFormType as QuizForm;
 use Egulias\QuizBundle\Entity\Answer;
-use Doctrine\Common\Util\Debug;
 /**
  *
  * @author Eduardo Gulias Davis <me@egulias.com>

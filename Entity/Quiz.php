@@ -1,9 +1,10 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Entity;
 
-use
-    Egulias\QuizBundle\Model\Quizes\Quiz as BaseQuiz,
+use Egulias\QuizBundle\Model\Quizes\Quiz as BaseQuiz,
     Doctrine\ORM\Mapping as ORM
 ;
 use Doctrine\Common\Util\Debug;
@@ -11,7 +12,7 @@ use Doctrine\Common\Util\Debug;
 /**
  *
  * @ORM\Entity
- * @ORM\Table (name="quiz")
+ * @ORM\Table (name="qz_quiz")
  */
 class Quiz extends BaseQuiz
 {
@@ -32,7 +33,6 @@ class Quiz extends BaseQuiz
      * @ORM\OneToMany(targetEntity="QuizQuestion", mappedBy="quiz", cascade={"persist"})
      */
     protected $questions;
-
 
     /**
      * Get id
@@ -74,10 +74,9 @@ class Quiz extends BaseQuiz
         return $this->questions;
     }
 
-
     public function __toString()
     {
-        return (string)$this->getId();
+        return (string) $this->getId();
     }
 
 }

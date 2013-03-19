@@ -14,8 +14,7 @@
       <td>{{ question.name  }}</td>
       <td>{{ question.text  }}</td>
       <td>{{ question.type  }}</td>
-      <td>
-      </td>
+      <td><a href="{{ path('egulias_quiz_question_edit', { "id" : question.id }) }}">edit</a></td>
     </tr>
   {% endfor %}
   </tbody>
