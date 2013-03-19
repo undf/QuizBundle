@@ -1,5 +1,7 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType,
@@ -10,6 +12,7 @@ use Doctrine\Common\Util\Debug;
 
 class AnswerFormType extends AbstractType
 {
+
     private $question;
 
     public function __construct(Question $question)
@@ -21,26 +24,26 @@ class AnswerFormType extends AbstractType
     {
         $this->builder = $builder;
         $config =
-            array(
-            'required' => TRUE,
-            'label'    => $this->question->getText(),
-            );
+                array(
+                    'required' => TRUE,
+                    'label' => $this->question->getText(),
+        );
         if ($this->question->getType() == 'choice') {
             $choices = $this->question->getChoices();
             $chConf = $choices->getConfig();
             switch ($choices->getType()) {
-            case 'select':
-                $config['expanded'] = FALSE;
-                $config['multiple'] = FALSE;
-                break;
-            case 'checkbox':
-                $config['expanded'] = TRUE;
-                $config['multiple'] = TRUE;
-                break;
-            case 'radio':
-            default:
-                $config['expanded'] = TRUE;
-                break;
+                case 'select':
+                    $config['expanded'] = FALSE;
+                    $config['multiple'] = FALSE;
+                    break;
+                case 'checkbox':
+                    $config['expanded'] = TRUE;
+                    $config['multiple'] = TRUE;
+                    break;
+                case 'radio':
+                default:
+                    $config['expanded'] = TRUE;
+                    break;
             }
             $config['choices'] = $choices->getChoices();
         }
