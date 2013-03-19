@@ -9,14 +9,14 @@
         {
             "name": "Guille Ferrer",
             "email": "guilleferrer@gmail.com",
-            "homepage": "www.undefined.es"
+            "homepage": "http://www.undefined.es"
         }
     ],
     "require": {
         "php": ">=5.3.1"
     },
     "replace": {
-        "undf/quiz-bundle": "dev-master"
+        "undf/QuizBundle": "dev-master"
     },
     "autoload": {
         "psr-0": { "Egulias\\QuizBundle" : "" }
