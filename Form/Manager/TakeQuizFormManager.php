@@ -1,10 +1,11 @@
 <?php
+
 namespace Egulias\QuizBundle\Form\Manager;
 
 use Symfony\Component\HttpFoundation\Request;
-
 use Egulias\QuizBundle\Form\Type\GenericQuizFormType as QuizForm;
 use Egulias\QuizBundle\Entity\Answer;
+
 /**
  *
  * @author Eduardo Gulias Davis <me@egulias.com>
@@ -13,10 +14,10 @@ use Egulias\QuizBundle\Entity\Answer;
  */
 class TakeQuizFormManager
 {
+
     protected $em = NULL;
     protected $request = NULL;
     protected $formFactory = NULL;
-
 
     public function __construct(Request $request, $em, $formFactory)
     {
@@ -35,21 +36,17 @@ class TakeQuizFormManager
     public function takeQuiz($id)
     {
         $id = intval($id);
-        try
-        {
+        try {
             $quiz = $this->getQuiz($id);
             $questions = $quiz->getQuestions();
             foreach ($questions as $question) {
                 $question->setAnswer(new Answer());
             }
 
-            $form = $this->formFactory->create(new QuizForm(),$quiz );
+            $form = $this->formFactory->create(new QuizForm(), $quiz);
             return $form;
-
-        }
-        catch (\Exception $e)
-        {
-            throw new \Exception($e->getMessage(),0, $e);
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 0, $e);
         }
     }
 
@@ -68,11 +65,11 @@ class TakeQuizFormManager
             $form = $this->takeQuiz($id);
             $form->bindRequest($this->request);
             $qQuestions = $form->getData()->getQuestions();
-            foreach ($qQuestions as  $qq) {
+            foreach ($qQuestions as $qq) {
                 $formAnswer = $qq->getAnswer();
 
                 $quizQuestion = $this->em->getRepository('EguliasQuizBundle:QuizQuestion')
-                    ->findOneBy(array('id' => $qq->getId()));
+                        ->findOneBy(array('id' => $qq->getId()));
 
                 $q = $quizQuestion->getQuestion();
                 $type = $q->getType();
@@ -82,30 +79,30 @@ class TakeQuizFormManager
                         //Compatible with PHP 5.3.x
                         $choices = $choices->getChoices();
                         $formAnswer->setResponse(
-                            array(
-                                $formAnswer->getResponse() => $choices[$formAnswer->getResponse()]
-                            )
+                                array(
+                                    $formAnswer->getResponse() => $choices[$formAnswer->getResponse()]
+                                )
                         );
                     }
                 }
                 $formAnswer->setQuizUuid($uuid);
                 $formAnswer->setQuizQuestion($quizQuestion);
                 $this->em->persist($formAnswer);
-
             }
             $this->em->flush();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage(), 0, $e);
         }
-        catch (\Exception $e) {
-            throw new \Exception($e->getMessage(),0, $e);
-        }
-         return $form;
+        return $form;
     }
 
     private function getQuiz($id)
     {
-        if (!$quiz = $this->em->getRepository('EguliasQuizBundle:Quiz')->findOneBy(array('id'=> $id))) {
+        if (!$quiz = $this->em->getRepository('EguliasQuizBundle:Quiz')->findOneBy(array('id' => $id))) {
             throw new \InvalidArgumentException("Invalid Quiz ID. Value given $id ");
         }
+
         return $quiz;
     }
+
 }
