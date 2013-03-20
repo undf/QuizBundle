@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <h5>{% trans %} New Question{% endtrans %}</h5>
+    <h5>{{ 'New Question' | trans( {} , 'Quiz' ) }}</h5>
     <div class="clearfix">
     {{ form_label(questionForm.question) }}
     {{ form_errors(questionForm.question) }}

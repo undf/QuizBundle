@@ -38,6 +38,6 @@
 
     <input type="hidden" name="question[type]" value="choice" />
 {{ form_widget(form._token) }}
-<button type='submit' class="btn primary">{% trans %}Save Question{% endtrans %}</button>
+<button type='submit' class="btn primary">{{ 'Save Question' | trans( {} , 'Quiz' ) }}</button>
 </form>
 {% endblock %}

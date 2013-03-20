@@ -1,13 +1,13 @@
 {% extends 'EguliasQuizBundle::layout.html.twig' %}
 
 {% block content %}
-<h1>{% trans %}Available Quizes{% endtrans %}</h1>
+<h1>{{ 'Available Quizes' | trans( {} , 'Quiz' ) }}</h1>
 <a class="btn" href="{{ path('egulias_quiz_add') }}">Add Quiz</a>
 <table>
   <thead>
-    <th>{% trans %} Quiz Name {% endtrans %}</th>
-    <th>{% trans %} Questions {% endtrans %}</th>
-    <th>{% trans %} Actions {% endtrans %}</th>
+    <th>{{ 'Quiz Name' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Questions' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Actions' | trans( {} , 'Quiz' ) }}</th>
   </thead>
   <tbody>
   {% for quiz  in quizes  %}

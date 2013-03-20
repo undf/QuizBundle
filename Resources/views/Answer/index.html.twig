@@ -1,14 +1,14 @@
 {% extends 'EguliasQuizBundle::layout.html.twig' %}
 
 {% block content %}
-<h1>{% trans %}Answered Answers{% endtrans %}</h1>
+<h1>{{ 'Answered Answers' | trans( {} , 'Quiz' ) }}</h1>
 <table>
   <thead>
-    <th>{% trans %} Quiz Instance UUID {% endtrans %}</th>
-    <th>{% trans %} Quiz Name {% endtrans %}</th>
-    <th>{% trans %} Question {% endtrans %}</th>
-    <th>{% trans %} Resonse {% endtrans %}</th>
-    <th>{% trans %} Resonse Date {% endtrans %}</th>
+    <th>{{ 'Quiz Instance UUID' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Quiz Name' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Question' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Resonse' | trans( {} , 'Quiz' ) }}</th>
+    <th>{{ 'Resonse Date' | trans( {} , 'Quiz' ) }}</th>
   </thead>
   <tbody>
   {% for answer in answers  %}

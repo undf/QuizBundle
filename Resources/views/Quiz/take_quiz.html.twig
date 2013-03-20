@@ -1,7 +1,7 @@
 {% extends 'EguliasQuizBundle::layout.html.twig' %}
 
 {% block content %}
-<h2>{% trans %}Do the Quiz {% endtrans %} {{quiz.name}}</h2>
+<h2>{{ 'Do the Quiz' | trans( {} , 'Quiz' ) }} {{quiz.name}}</h2>
 <form action="{% block form_action %} {{ path('egulias_quiz_save_response',{'id':quiz.id})}} {% endblock %}" method="POST" {{
   form_enctype(quizForm)}} class="form-stacked" >
     <div class="clearfix">
@@ -13,6 +13,6 @@
     {% endfor %}
     </div>
     {{ form_widget(quizForm._token) }}
-<button type='submit' class="btn primary">{% trans %} Save Response{% endtrans %}</button>
+<button type='submit' class="btn primary">{{ 'Save Response' | trans( {} , 'Quiz' ) }}</button>
 </form>
 {% endblock %}

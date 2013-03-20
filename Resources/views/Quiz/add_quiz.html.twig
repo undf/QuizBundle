@@ -13,7 +13,7 @@
   {{ form_label(form.name) }}
   {{ form_errors(form.name) }}
   {{ form_widget(form.name) }}
-  <span class="help-block"><strong>{% trans %}Note: {% endtrans %}</strong>{% trans %} The name of the Quiz{% endtrans %}</span>
+  <span class="help-block"><strong>{% trans %}Note: {% endtrans %}</strong>{{ 'The name of the Quiz' | trans( {} , 'Quiz' ) }}</span>
 </div>
 <div class="clearfix">
   {{ form_label(form.questions) }}
@@ -27,7 +27,7 @@
 {{ form_widget(form) }}
 <table id='questions_table'>
 </table>
-<button type='submit' class="btn primary">{% trans %}Save Quiz{% endtrans %}</button>
+<button type='submit' class="btn primary">{{ 'Save Quiz' | trans( {} , 'Quiz' ) }}</button>
 </form>
 {% endblock %}
 
