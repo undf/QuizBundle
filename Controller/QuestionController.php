@@ -64,7 +64,15 @@ class QuestionController extends Controller
      */
     public function saveQuestionAction()
     {
-        $data = $this->getRequest()->get('question');
+        $data = $this->get('request')->get('question');
+        $temp = array();
+        foreach ($data['choices'] as $k => $choice) {
+            if (!is_int($k))
+                continue;
+            $temp[] = $choice;
+            unset($data['choices'][$k]);
+        }
+        $data['choices']['choices'] = $temp;
 
         $this->get('egulias.question.manager')->saveQuestion($data);
 
@@ -117,16 +125,17 @@ class QuestionController extends Controller
     {
         $quizId = intval($this->get('request')->get('quiz'));
         $q = $this->get('form.factory')->create(new QuestionsListFormType());
-        if ($quiz = $this->get('doctrine.orm.entity_manager')
+        $quiz = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('EguliasQuizBundle:Quiz')
-                ->findOneBy(array('id' => $quizId))
-        ) {
+                ->findOneBy(array('id' => $quizId));
+
+        if ($quiz) {
             $qq = new QuizQuestion();
             $qq->setQuiz($quiz);
             $q->setData($qq);
         }
-        return $this->render('EguliasQuizBundle:Question:quizQuestionForm.html.twig', array('questionForm' => $q->createView())
-        );
+
+        return new Response($this->renderView('EguliasQuizBundle:Question:quizQuestionForm.html.twig', array('questionForm' => $q->createView())), 200, array('Content-Type' => 'text/html'));
     }
 
 }

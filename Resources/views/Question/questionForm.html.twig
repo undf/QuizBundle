@@ -9,35 +9,64 @@
 {% endblock %}
 
 {% block content %}
-<h1>{% trans %} New Question {% endtrans  %}</h1>
-
-<form action="{{  path('egulias_question_save') }}" method="POST" {{ form_enctype(form)}} class="form-stacked">
+<h1>{{ 'New Question ' | trans( {} , 'Quiz' )}}
+<form action="{{ path('egulias_question_save')}}" method="POST" {{ form_enctype(form)}} class="form-stacked">
     <div class="clearfix">
       {{ form_label(form.name) }}
       {{ form_errors(form.name) }}
       {{ form_widget(form.name) }}
-      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The name of the Question that will be shown
-    when creating a new Quiz{% endtrans %}</span>
+      <span class="help-block">
+          <strong>{{ 'Note:' | trans( {} , 'Quiz' )}}</strong>{{ 'The name of the Question that will be shown when creating a new Quiz' | trans( {} , 'Quiz' ) }}
+      </span>
     </div>
     <div class="clearfix">
       {{ form_label(form.text) }}
       {{ form_errors(form.text) }}
       {{ form_widget(form.text) }}
-      <span class="help-block"><strong>{% trans %}Note:{% endtrans %}</strong>{% trans %}The question itself. This is what
-      will be shown when taking a quiz.{% endtrans %}</span>
-    </div>
-
-
-    <div class="clearfix">
-      {% for i,letter in ['a)','b)','c)','d)'] %}
-      <label>Answer {{ letter }}</label>
-        <input type="text"  name="question[choices][choices][{{ i }}][label]" class="choice_label mini" value="{{ letter }}" />
-        <input type="text"  name="question[choices][choices][{{ i }}][value]" class="choice_value"/>
-      {% endfor %}
+      <span class="help-block">
+          <strong>{{ 'Note:' | trans( {} , 'Quiz' )}}</strong>{{ 'The question itself. This is what will be shown when taking a quiz.' | trans( {} , 'Quiz' ) }}
+      </span>
     </div>
 
     <input type="hidden" name="question[type]" value="choice" />
+    <input type="hidden" name="question[choices][config]" value="radio">
+
+    <div class="add_options" >
+        <div class="clearfix">
+            <div class="question_options">
+                <input type="hidden" name="question[choices][1][label]" value="a">
+                <input type="text" name="question[choices][1][value]" class="choice_value" required="true" placeholder="Choice A">
+            </div>
+            <div class="question_options">
+                <input type="hidden" name="question[choices][2][label]" value="b">
+                <input type="text" name="question[choices][2][value]" class="choice_value" required="true" placeholder="Choice B">
+            </div>
+            <div class="question_options">
+                <input type="hidden" name="question[choices][3][label]" value="c">
+                <input type="text" name="question[choices][3][value]" class="choice_value" required="true" placeholder="Choice C">
+            </div>
+            <div class="question_options">
+                <input type="hidden" name="question[choices][4][label]" value="d">
+                <input type="text" name="question[choices][4][value]" class="choice_value" required="true" placeholder="Choice D">
+            </div>
+        </div>
+<!--
+        <div class="clearfix">
+          <a href="#">Add choice</a>
+          <div class="question_options hidden">
+            <input type="text" name="options[label]" class="choice_label"/>
+            <span class="help-block">
+                <strong>{{ 'Note:' | trans( {} , 'Quiz' )}}</strong>{{ 'This will be the label displayed for the option ' | trans( {} , 'Quiz' )}}
+            </span>
+            <input type="text" name="options[value]" class="choice_value"/>
+            <span class="help-block">
+                <strong>{{ 'Note:' | trans( {} , 'Quiz' )}}</strong>{{ 'This will be the value for the option ' | trans( {} , 'Quiz' )}}
+            </span>
+          </div>
+        </div>
+-->
+    </div>
 {{ form_widget(form._token) }}
-<button type='submit' class="btn primary">{{ 'Save Question' | trans( {} , 'Quiz' ) }}</button>
+<button type='submit' class="btn primary">{{ 'Save Question' | trans( {} , 'Quiz' )}}</button>
 </form>
 {% endblock %}
