@@ -43,7 +43,21 @@ class QuizManagerController extends Controller
      */
     public function saveQuizAction()
     {
-        $this->get('egulias.quiz.manager')->saveQuizForm();
+        $params = $this->getRequest()->get('quiz');
+
+        $questions = array();
+        if (isset($params['questions'])) {
+            $questions = $params['questions'];
+            unset($params['questions']);
+        }
+
+        // Generate an array of question Ids to be added
+        $questionIds = array();
+        foreach ($questions as $q) {
+            $questionIds[] = intval($q['question']);
+        }
+
+        $this->get('egulias.quiz.manager')->saveQuizForm($params, $questionIds);
         return $this->redirect($this->generateUrl('egulias_quiz_panel'));
     }
 

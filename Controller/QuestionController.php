@@ -69,6 +69,7 @@ class QuestionController extends Controller
         foreach ($data['choices'] as $k => $choice) {
             if (!is_int($k))
                 continue;
+            $choice['label'] = $choice['value'];
             $temp[] = $choice;
             unset($data['choices'][$k]);
         }
@@ -123,12 +124,13 @@ class QuestionController extends Controller
      */
     public function addQuestionAction()
     {
-        $quizId = intval($this->get('request')->get('quiz'));
-        $q = $this->get('form.factory')->create(new QuestionsListFormType());
+
+        $quizId = intval($this->getRequest()->get('quiz'));
         $quiz = $this->get('doctrine.orm.entity_manager')
                 ->getRepository('EguliasQuizBundle:Quiz')
                 ->findOneBy(array('id' => $quizId));
 
+        $q = $this->get('form.factory')->create(new QuestionsListFormType());
         if ($quiz) {
             $qq = new QuizQuestion();
             $qq->setQuiz($quiz);

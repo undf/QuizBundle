@@ -41,35 +41,33 @@ class QuizFormManager
      *
      * @return mixed FALSE | QuizFormType
      */
-    public function saveQuizForm()
+    public function saveQuizForm($params, $questionIds)
     {
         $form = $this->getQuizForm();
-        $params = $this->request->get('quiz');
-
-        $questions = array();
-        if (isset($params['questions'])) {
-            $questions = $params['questions'];
-            unset($params['questions']);
-        }
-
         $form->bind($params);
         if (!$form->isValid())
             return $form;
 
         $quiz = $form->getData();
         $this->em->persist($quiz);
+        $this->addQuestionsToQuiz($quiz, $questionIds);
+        $this->em->flush();
 
-        foreach ($questions as $question) {
-            $question = $this->em->getRepository('EguliasQuizBundle:Question')
-                    ->findOneBy(array('id' => $question['question']));
-            $qq = new QuizQuestion;
+        return $form;
+    }
+
+    public function addQuestionsToQuiz(Quiz $quiz, array $questionIds)
+    {
+        foreach ($questionIds as $id) {
+            $question = $this->em
+                    ->getRepository('EguliasQuizBundle:Question')
+                    ->findOneBy(array('id' => $id));
+
+            $qq = new QuizQuestion();
             $qq->setQuiz($quiz);
             $qq->setQuestion($question);
             $this->em->persist($qq);
         }
-        $this->em->flush();
-
-        return $form;
     }
 
     /**

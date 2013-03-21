@@ -97,4 +97,5 @@ abstract class QuizQuestion
         $label = $this->getQuestion()->getText();
         return $label;
     }
+
 }

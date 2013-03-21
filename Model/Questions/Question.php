@@ -1,5 +1,7 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Model\Questions;
 
 use Egulias\QuizBundle\Model\Questions\QuestionInterface;
@@ -18,6 +20,7 @@ use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
  */
 abstract class Question implements QuestionInterface
 {
+
     const TEXT = 'text';
     const TEXTAREA = 'textarea';
     const NUMBER = 'number';
@@ -28,6 +31,7 @@ abstract class Question implements QuestionInterface
      * @ORM\OneToMany(targetEntity="QuizQuestion", mappedBy="question")
      */
     protected $quizes;
+
     /**
      * @ORM\Column(type="string", length=255)
      */
@@ -134,12 +138,11 @@ abstract class Question implements QuestionInterface
     public static function getBaseTypes()
     {
         $t = array(
-            self::TEXT      => self::TEXT,
-            self::TEXTAREA  => self::TEXTAREA,
- //           self::NUMBER    => self::NUMBER,
- //           self::BOOLEAN   => self::BOOLEAN,
-            self::CHOICE    => self::CHOICE,
+            self::TEXT => self::TEXT,
+            self::TEXTAREA => self::TEXTAREA,
+            self::CHOICE => self::CHOICE,
         );
+
         return $t;
     }
 
@@ -147,4 +150,5 @@ abstract class Question implements QuestionInterface
     {
         return $this->getName();
     }
+
 }
