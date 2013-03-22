@@ -96,7 +96,7 @@ class TakeQuizFormManager
         return $form;
     }
 
-    private function getQuiz($id)
+    public function getQuiz($id)
     {
         if (!$quiz = $this->em->getRepository('EguliasQuizBundle:Quiz')->findOneBy(array('id' => $id))) {
             throw new \InvalidArgumentException("Invalid Quiz ID. Value given $id ");

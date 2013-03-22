@@ -4,6 +4,7 @@ namespace Egulias\QuizBundle\Model\Questions;
 
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * QuestionChoices
@@ -19,6 +20,8 @@ abstract class QuestionChoices implements ChoiceListInterface
 
     /**
      * @ORM\Column(type="array")
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      */
     protected $choices = array();
 

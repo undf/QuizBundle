@@ -5,7 +5,7 @@ use
     Egulias\QuizBundle\Model\Questions\Question as BaseQuestion,
     Doctrine\ORM\Mapping as ORM
 ;
-
+use JMS\Serializer\Annotation as JMS;
 /**
  *
  * @ORM\Entity
@@ -18,6 +18,9 @@ class Question extends BaseQuestion
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
+     * 
      */
     protected $id;
 

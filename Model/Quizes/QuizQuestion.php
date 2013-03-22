@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Egulias\QuizBundle\Model\Quizes\Quiz;
 use Egulias\QuizBundle\Model\Questions\QuestionInterface;
 use Egulias\QuizBundle\Model\Answers\Answer;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * QuizQuestion (Intermediate table)
@@ -25,6 +26,8 @@ abstract class QuizQuestion
 
     /**
      * @ORM\ManyToOne(targetEntity="Question", inversedBy="quiz_question")
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      */
     protected $question;
 

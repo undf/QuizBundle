@@ -8,6 +8,7 @@ use Egulias\QuizBundle\Model\Questions\QuestionInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  * Question
@@ -17,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\ChoiceList\ChoiceListInterface;
  * @package QuizBundle
  * @subpackage Model
  * @author Eduardo Gulias Davis <me@egulias.com>
+ * @JMS\ExclusionPolicy("all")
  */
 abstract class Question implements QuestionInterface
 {
@@ -34,11 +36,15 @@ abstract class Question implements QuestionInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      */
     protected $name;
 
     /**
      * @ORM\Column(type="string")
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      */
     protected $text;
 
@@ -48,7 +54,9 @@ abstract class Question implements QuestionInterface
     protected $type = 'text';
 
     /**
-     *  @ORM\OneToOne(targetEntity="Choices", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Choices", cascade={"persist"})
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      */
     protected $choices;
 

@@ -8,11 +8,13 @@ use Egulias\QuizBundle\Model\Quizes\Quiz as BaseQuiz,
     Doctrine\ORM\Mapping as ORM
 ;
 use Doctrine\Common\Util\Debug;
+use JMS\Serializer\Annotation as JMS;
 
 /**
  *
  * @ORM\Entity
  * @ORM\Table (name="qz_quiz")
+ * @JMS\ExclusionPolicy("all")
  */
 class Quiz extends BaseQuiz
 {
@@ -30,6 +32,8 @@ class Quiz extends BaseQuiz
     protected $name;
 
     /**
+     * @JMS\Groups({"list" })
+     * @JMS\Expose
      * @ORM\OneToMany(targetEntity="QuizQuestion", mappedBy="quiz", cascade={"persist"})
      */
     protected $questions;
