@@ -15,7 +15,7 @@ abstract class Answer
     /**
      * @ORM\Column(type="string")
      */
-    protected $quizUuid = '';
+    protected $quizUuid;
     /**
      * @ORM\ManyToOne(targetEntity="QuizQuestion", inversedBy="answer")
      */

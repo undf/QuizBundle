@@ -1,13 +1,17 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 namespace Egulias\QuizBundle\Model\Quizes;
 
 use Egulias\QuizBundle\Model\Questions\Question;
 use Doctrine\Common\Collections\ArrayCollection;
+
 /**
  * Declaration of abstract class Quiz
  *
  */
+
 /**
  * Quiz
  *
@@ -19,12 +23,12 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 abstract class Quiz implements QuizInterface
 {
+
     protected $uuid;
 
     public function __construct()
     {
-        $this->questions = new ArrayCollection;
-        $this->setUUID();
+        $this->questions = new ArrayCollection();
     }
 
     /**
@@ -54,25 +58,23 @@ abstract class Quiz implements QuizInterface
             $this->questions->next();
             return $cur;
         }
-        else return $this->questions[intval($n)];
+        else
+            return $this->questions[intval($n)];
     }
 
     /**
      * @see QuizInterface
      */
-    public function setUUID()
+    public function setUUID($uuid)
     {
-        if (!$this->uuid) {
-            $this->uuid = SHA1(uniqid('Q',TRUE));
-        }
+        $this->uuid = $uuid;
+
         return $this;
     }
 
     public function getUUID()
     {
-        $this->setUUID();
         return $this->uuid;
     }
-}
 
-?>
+}

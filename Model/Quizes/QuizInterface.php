@@ -46,7 +46,7 @@ interface QuizInterface
      *
      * @access public
      */
-    public function setUUID();
+    public function setUUID($uuid);
     /**
      * getUUID
      *

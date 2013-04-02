@@ -60,7 +60,7 @@ class QuestionController extends Controller
      *  Save a question and its options
      *
      *  @return  RedirectResponse
-     *  @Route("quiz/questions/save", name="egulias_question_save")
+     *  @Route("/quiz/questions/save", name="egulias_question_save")
      */
     public function saveQuestionAction()
     {

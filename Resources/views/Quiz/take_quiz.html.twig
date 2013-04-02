@@ -1,9 +1,15 @@
 {% extends 'EguliasQuizBundle::layout.html.twig' %}
 
 {% block content %}
+{% if app.session.hasFlash('error') %}
+    <div class="text-error">
+        {{ app.session.flash('error') }}
+    </div>
+{% endif %}
 <h2>{{ 'Do the Quiz' | trans( {} , 'Quiz' ) }} {{quiz.name}}</h2>
 <form action="{% block form_action %} {{ path('egulias_quiz_save_response',{'id':quiz.id})}} {% endblock %}" method="POST" {{
   form_enctype(quizForm)}} class="form-stacked" >
+    <input class="span3" type="email" name="email" required placeholder="E-mail">
     <div class="clearfix">
     {% for quizquestion in quizForm.questions %}
         <h5>{% trans %}Question nº {% endtrans  %}{{ loop.index  }}</h5>

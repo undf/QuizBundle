@@ -23,7 +23,7 @@ class QuizController extends Controller
 
     /**
      * Quizes to be done!
-     * @Route("/quiz/{id}/start",requirements={"id" = "\d+"} ,name="egulias_quiz_take")
+     * @Route("/quiz/{id}/take",requirements={"id" = "\d+"} ,name="egulias_quiz_take")
      */
     public function takeQuizAction($id)
     {
@@ -40,7 +40,9 @@ class QuizController extends Controller
      */
     public function saveResponseAction($id)
     {
-        if (!$form = $this->get('egulias.take.quiz')->responseQuiz($id)) {
+        $email = $this->getRequest()->get('email');
+
+        if (!$form = $this->get('egulias.take.quiz')->responseQuiz($id, $email)) {
             return $this->render('EguliasQuizBundle:Quiz:take_quiz.html.twig', array(
                         'quizForm' => $form->createView(),
                         'quiz' => $form->getData()));
