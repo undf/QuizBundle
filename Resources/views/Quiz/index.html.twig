@@ -2,7 +2,9 @@
 
 {% block content %}
 <h1>{{ 'Available Quizes' | trans( {} , 'Quiz' ) }}</h1>
-<a class="btn" href="{{ path('egulias_quiz_add') }}">Add Quiz</a>
+{% if ( (quizes | length) == 0 ) %}
+    <a class="btn" href="{{ path('egulias_quiz_add') }}">Add Quiz</a>
+{% endif %}
 <table>
   <thead>
     <th>{{ 'Quiz Name' | trans( {} , 'Quiz' ) }}</th>
